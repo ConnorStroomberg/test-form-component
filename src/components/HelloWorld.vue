@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <form-component></form-component>
+    <form-component id="example-form" :schema="schema"></form-component>
   </div>
 </template>
 
@@ -15,7 +15,30 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      schema: {
+        fields: [
+          {
+            type: 'text',
+            id: 'text-field',
+            label: 'Text field',
+            description: 'This is a cool text field',
+            visible: true,
+            required: true,
+            disabled: false,
+            validators: [
+              (value) => {
+                const valid = value.indexOf('test') !== -1
+                const message = valid ? '' : 'not valid value. Please include the word test'
+                return {
+                  valid: valid,
+                  message: message
+                }
+              }
+            ]
+          }
+        ]
+      }
     }
   }
 }
